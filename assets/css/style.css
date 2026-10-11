@@ -378,6 +378,7 @@ main > section:nth-child(7)  { margin-left: 0;   margin-right: 9%; }
 main > section:nth-child(8)  { margin-left: 13%; margin-right: 2%; }
 main > section:nth-child(9)  { margin-left: 5%;  margin-right: 11%; }
 main > section:nth-child(10) { margin-left: 10%; margin-right: 0;  }
+main > section:nth-child(11) { margin-left: 6%;  margin-right: 8%; }
 
 /* A little variation in height as well, so the stack has a skyline rather
    than a repeating beat. */
@@ -412,6 +413,31 @@ main > section:hover {
     inset 0 1px 0 rgba(255, 255, 255, 0.85),
     0 1px 2px rgba(var(--mesh-rgb), 0.03),
     0 24px 54px rgba(var(--mesh-rgb), 0.1);
+}
+
+/* --- About me ----------------------------------------------------------
+   Two columns of unequal width: a narrow one for the photo, a wide one for
+   the text, both aligned to the top. The photo keeps square corners. */
+.about {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 2.25rem;
+  align-items: start;
+}
+
+.about-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+}
+
+.about-text > :first-child {
+  margin-top: 0;
+}
+
+.about-text > :last-child {
+  margin-bottom: 0;
 }
 
 /* --- Entrance ----------------------------------------------------------
@@ -475,6 +501,16 @@ main > section:hover {
 
   main > section:last-child {
     margin-bottom: 0;
+  }
+
+  /* The photo moves above the text once the column is too narrow for two. */
+  .about {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .about-photo {
+    max-width: 110px;
   }
 
   /* Hover lift is a pointer affordance; on touch it just looks like drift. */
