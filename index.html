@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jie Song</title>
+<title>Independent Research on Kolmogorov-Arnold Networks</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
@@ -2769,8 +2769,8 @@
 </svg>
 
 <header>
-  <h1>Jie Song</h1>
-  <p class="subtitle">Independent Research — Algorithmic Theory & Experiments on Kolmogorov-Arnold Networks (KAN)</p>
+  <h1>Independent Research on <span style="white-space: nowrap">Kolmogorov-Arnold</span> Networks</h1>
+  <p class="subtitle">Jie Song</p>
 </header>
 
 <nav>
@@ -2893,17 +2893,17 @@
     <h2>Foundations</h2>
 
     <h3>Learning Approach</h3>
-    <p>Preparation proceeds in layers, each resting on the one beneath it. It began with mathematics — linear algebra, calculus, and probability — studied from the references below before any machine learning. Deep learning came next, through <em>Dive into Deep Learning</em>, followed by a second, slower pass through neural network fundamentals, in which each result is derived again from first principles and then implemented. Throughout, the mathematics is studied as mathematics: definitions, statements, and derivations taken on their own terms, not merely as a toolkit for the code.</p>
+    <p>Preparation proceeds in layers, each resting on the one beneath it. It began with mathematics — linear algebra, calculus, and probability — studied before any machine learning. Deep learning came next, through <em>Dive into Deep Learning</em>, followed by a second, slower pass through neural network fundamentals, drawing mainly on Michael Nielsen's <em>Neural Networks and Deep Learning</em>, in which each result is derived again and then implemented. Throughout, the mathematics is treated as mathematics: definitions, statements, and derivations are studied on their own terms, not only as tools for the code.</p>
 
-    <p>The method is the same at every layer: a concept counts as understood only when it can be stated precisely and built by hand. Each notebook section states the key equations exactly, implements them from scratch in PyTorch, and checks the result against an independent reference — hand-written backpropagation against autograd, for example. Abstractions come only after the mechanism beneath them has been built: raw tensors first, then manual gradients, then <code>nn.Module</code>.</p>
+    <p>The working standard is that a concept counts as understood only once it can be stated precisely and implemented by hand. Each notebook section states the key equations, implements them from scratch in PyTorch, and checks the result against an independent reference — hand-written backpropagation against autograd, for example. Abstractions are introduced only after the mechanism beneath them has been built: raw tensors first, then manual gradients, then <code>nn.Module</code>.</p>
 
-    <p>When the work outgrows the tools at hand, I build or adapt my own — <a href="https://github.com/kq7m3x/kaonotes" target="_blank">KaoNotes</a>, a LaTeX template adapted for writing mathematical notes, is one example. Tools and problems develop together: a question determines what tool is needed, and a better tool in turn makes new questions practical to pursue. Each tool is built to outlast the problem that prompted it.</p>
+    <p>Where existing tools fall short, small ones are built or adapted along the way — for example <a href="https://github.com/kq7m3x/kaonotes" target="_blank">KaoNotes</a>, a LaTeX template adapted for mathematical notes.</p>
 
-    <p>The research stage is literature-driven. Starting from the original KAN paper and extending outward to related theoretical work, each unfamiliar concept is identified as it appears and studied to the depth the literature demands — fully where it is central, only as far as needed where it is peripheral.</p>
+    <p>The research stage is driven by the literature. Reading starts from the original KAN paper and extends to related theoretical work; unfamiliar concepts are studied as they appear — in depth where they are central, and only as far as needed where they are peripheral.</p>
 
-    <p>Primary references drawn on as needed: MIT 18.06 Linear Algebra, <em>Dive into Deep Learning</em> (Zhang, Lipton, Li &amp; Smola; an open textbook adopted in university courses, including at Stanford), Thomas' Calculus / MIT 18.01–18.02, and MIT 6.041/18.05 Probability.</p>
+    <p>Primary references, drawn on as needed: MIT 18.06 Linear Algebra; Thomas' Calculus / MIT 18.01–18.02; MIT 6.041/18.05 Probability; <em>Dive into Deep Learning</em> (Zhang, Lipton, Li &amp; Smola; an open textbook used in university courses, including at Stanford); and Michael Nielsen's <em>Neural Networks and Deep Learning</em>.</p>
 
-    <p>This preparation lives in its own repository, separate from the research itself: notebooks pairing each formula with a self-written implementation, alongside notes on concepts met in the literature. It precedes the KAN project and is not part of its output. Its purpose is not only to answer the questions in front of me, but to be ready for the questions that come next.</p>
+    <p>This preparation is kept in a separate repository: notebooks pairing each formula with a self-written implementation, together with notes on concepts met in the literature. It precedes the KAN project and is not counted as part of its output.</p>
     <a href="https://github.com/kq7m3x/kan-research-prep" target="_blank">View prep notebooks →</a>
   </section>
 </main>
