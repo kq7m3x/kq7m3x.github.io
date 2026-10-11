@@ -1,51 +1,65 @@
-:root {
-  --ink: #212326;
-  --muted: #626a73;
-  --line: #b8c2cc;   /* a step darker than --bg, or the rules vanish */
-  --accent: #750014;
-  --bg: #dde1e6;
 
-  /* Component triples, so the drawn layers can pick their own alphas. */
-  --accent-rgb: 117, 0, 20;
-  --mesh-rgb: 64, 70, 76;
-  --card-rgb: 242, 244, 248;
+:root {
+  --ink: #111111;
+  --muted: #6b6b6b;
+  --line: #d6d6d6;
+  --bg: #ffffff;
+  --col: 1056px;   /* width of the shared column */
+  --gutter: 2rem;  /* space kept on either side on narrow windows */
+  --label: 220px;  /* left column that carries the section headings */
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: "Source Serif 4", "Songti SC", "Noto Serif TC", Georgia, serif;
+  font-family: "Geist", "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
   color: var(--ink);
   background: var(--bg);
-  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* The shared column. */
+header,
+nav,
+main,
+footer {
+  width: calc(100% - 2 * var(--gutter));
+  max-width: var(--col);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Header ------------------------------------------------------------ */
 header {
-  padding: 3rem 1.5rem 1.5rem;
-  text-align: center;
-  border-bottom: 1px solid var(--line);
+  padding: 5rem 0 2.5rem;
 }
 
 header h1 {
-  margin: 0 0 0.25rem;
-  font-size: 2.1rem;
+  margin: 0;
+  max-width: 26ch;
+  font-size: clamp(2.1rem, 4.4vw, 3.5rem);
   font-weight: 600;
-  letter-spacing: 0.02em;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
 }
 
 .subtitle {
+  margin: 1.25rem 0 0;
+  font-size: 1.05rem;
   color: var(--muted);
-  margin: 0;
-  font-style: italic;
 }
 
+/* --- Navigation -------------------------------------------------------- */
 nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.25rem;
-  padding: 1rem;
+  gap: 0.4rem 1.3rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--ink);
   border-bottom: 1px solid var(--line);
   font-size: 0.9rem;
 }
@@ -53,40 +67,125 @@ nav {
 nav a {
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 1px solid transparent;
 }
 
-nav a:hover {
-  border-bottom-color: var(--accent);
+nav a:hover,
+nav a:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
 }
 
+/* --- Sections ---------------------------------------------------------- */
 main {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 1rem 1.5rem 4rem;
+  padding: 0 0 5rem;
 }
 
-section {
-  padding: 2rem 0;
+main > section {
+  padding: 3.25rem 0;
+  border-top: 1px solid var(--line);
+}
+
+main > section:first-child {
+  border-top: 0;
 }
 
 section h2 {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
-  color: var(--accent);
+  margin: 0 0 1.25rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
 }
 
 section h3 {
+  margin: 2.25rem 0 0.6rem;
   font-size: 1rem;
   font-weight: 600;
-  margin: 1.25rem 0 0.5rem;
-  color: var(--ink);
 }
 
 section h3:first-of-type {
   margin-top: 0;
 }
 
+section p,
+section ul {
+  margin: 0 0 1em;
+}
+
+/* Placeholders that are still empty take up no space. */
+section p:empty,
+section li:empty {
+  display: none;
+}
+
+main > section > :last-child,
+main > section p:last-child {
+  margin-bottom: 0;
+}
+
+/* Text keeps a readable measure even though the column is wide. */
+main > section > :not(h2):not(.about):not(.figure-grid),
+.about-text {
+  max-width: 680px;
+}
+
+/* Headings hang in their own column to the left of the content. */
+main > section {
+  display: grid;
+  grid-template-columns: var(--label) minmax(0, 1fr);
+  column-gap: 3rem;
+  align-items: start;
+}
+
+main > section > h2 {
+  grid-column: 1;
+  grid-row: 1 / span 40;
+  margin: 0;
+}
+
+main > section > :not(h2) {
+  grid-column: 2;
+}
+
+/* --- Links ------------------------------------------------------------- */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration-thickness: 2px;
+}
+
+/* Book titles and other emphasis stay upright: the typeface has no italic,
+   and a slanted imitation would look out of place. */
+em {
+  font-style: normal;
+}
+
+code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+/* --- About me ---------------------------------------------------------- */
+.about {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 680px);
+  gap: 2rem;
+  align-items: start;
+}
+
+.about-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* --- Figures ----------------------------------------------------------- */
 .figure-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -98,51 +197,27 @@ section h3:first-of-type {
   border: 1px solid var(--line);
 }
 
-footer {
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.85rem;
-  padding: 2rem 0;
-}
-
-a {
-  color: var(--accent);
-}
-
-/* --- Research Log ------------------------------------------------------
-   Entries come from the Markdown files in _logs/. Nothing here introduces a
-   card, shadow, gradient, typeface or colour that the site did not already
-   have: the date uses --accent, the toggle is styled as the plain text link
-   it behaves like, and entries are separated by space alone. */
+/* --- Research Log ------------------------------------------------------ */
 .log-entry + .log-entry,
 .log-more .log-entry:first-child {
   margin-top: 2.25rem;
 }
 
 .log-date {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.35rem;
   font-size: 0.82rem;
-  letter-spacing: 0.03em;
-  color: var(--accent);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
 
-/* The entry's own last paragraph should not add space on top of the gap
-   that already separates one entry from the next. */
 .log-entry > :last-child {
   margin-bottom: 0;
 }
 
-/* Height is animated from the script, which measures the content; the rule
-   here only supplies the clipping that makes a partial height read as a
-   reveal rather than as overflowing text. */
 .log-more {
   overflow: hidden;
 }
 
-/* Stated before the display rule below, and repeated with the attribute, so
-   that `display: inline-block` cannot outrank the browser's own
-   `[hidden] { display: none }` — which is what keeps the control out of the
-   page until the script has taken charge of it. */
 .log-toggle[hidden] {
   display: none;
 }
@@ -155,362 +230,56 @@ a {
   background: none;
   font: inherit;
   font-size: 0.9rem;
-  color: var(--accent);
+  color: var(--ink);
   cursor: pointer;
 }
 
 .log-toggle:hover,
 .log-toggle:focus-visible {
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-/* =========================================================================
-   Interactive visual layer
-   -------------------------------------------------------------------------
-   Everything below is additive. No font, size, weight, color, spacing,
-   content width, navbar or heading style above is changed by it. Each
-   scroll-driven property is written so that its resting value — and its
-   value with JavaScript disabled — is exactly the appearance the site had
-   before this layer existed. New elements draw only in neutral gray, taken
-   as low-opacity versions of --ink; no new accent color is introduced.
-
-   Layer order: particles (-1) < page content (1) < side graphic (2).
-   ========================================================================= */
-
-header,
-nav,
-main,
+/* --- Footer ------------------------------------------------------------ */
 footer {
-  position: relative;
-  z-index: 1;
+  padding: 1.25rem 0 3rem;
+  border-top: 1px solid var(--ink);
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
-/* --- Section heading reveal -------------------------------------------
-   Bound to scroll position, not played as a timed animation. --p runs
-   0 → 1 as the heading crosses the lower part of the viewport; at --p: 1
-   the heading is byte-for-byte its original self, accent color included. */
-section h2 {
-  opacity: calc(0.55 + 0.45 * var(--p, 1));
-  transform: translateY(calc((1 - var(--p, 1)) * 8px));
-  will-change: opacity, transform;
+footer p {
+  margin: 0;
 }
 
-/* --- Divider drawing ---------------------------------------------------
-   Replaces the former border-bottom with a line of identical color,
-   thickness and position, revealed left-to-right by scroll distance
-   rather than appearing all at once. */
-section {
-  position: relative;
-}
-
-/* The transparent border keeps each section's box exactly the height it
-   had when the divider was a real border-bottom, so no spacing shifts. */
-section:not(:last-child) {
-  border-bottom: 1px solid transparent;
-}
-
-section:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -3.5px;
-  height: 6px;
-  background:
-    radial-gradient(circle 2.5px at 2.5px 50%, rgba(var(--mesh-rgb), 0.22) 98%, transparent 100%) no-repeat,
-    radial-gradient(circle 2.5px at calc(100% - 2.5px) 50%, rgba(var(--mesh-rgb), 0.22) 98%, transparent 100%) no-repeat,
-    linear-gradient(var(--line), var(--line)) no-repeat center / 100% 1px;
-  /* Revealed by clipping rather than scaling, so the end dots never squash. */
-  clip-path: inset(0 calc((1 - var(--d, 1)) * 100%) 0 0);
-}
-
-/* --- Side fill graphic -------------------------------------------------
-   Spans from inside the text column all the way to the right edge of the
-   viewport. Its left side dissolves into the page and its right side runs
-   flush to the screen edge, so it reads as the page's own background rather
-   than as a panel pasted on top of it.
-
-   Width must be stated explicitly: an SVG carries an intrinsic aspect ratio,
-   so with width:auto the browser derives it from the height and ignores
-   `right` entirely. Because preserveAspectRatio is `slice`, the box width
-   would also set the drawing's scale — but the 1600-unit canvas is wide
-   enough that at any ordinary window the scale stays pinned to the height
-   (900/1000 = 0.9) and the mesh renders at a constant density, with a wider
-   window simply revealing more of it. */
-#side-graphic {
-  position: fixed;
-  top: 0;
-  /* left + width = (50% - 40px) + (50vw + 40px) = 100vw exactly, so the
-     right edge lands on the viewport edge at every window size — nothing
-     is ever left over on the right. */
-  left: calc(50% - 300px);
-  width: calc(50vw + 300px);
-  height: 100vh;
-  z-index: 0;
-  pointer-events: none;
-  will-change: transform;
-  /* Left edge dissolves into the page. Stops are in pixels rather than
-     percentages so the fade always ends the same distance from the content
-     column whatever the window width: it reaches full strength 880px in,
-     at 50% + 580px, clear of the cards' right edge — while its long faint
-     head runs on underneath them, which is what the translucent cards are
-     there to show. */
-  -webkit-mask-image: linear-gradient(to right, transparent 0px, rgba(0, 0, 0, 0.20) 400px, rgba(0, 0, 0, 0.60) 660px, #000 880px);
-  mask-image: linear-gradient(to right, transparent 0px, rgba(0, 0, 0, 0.20) 400px, rgba(0, 0, 0, 0.60) 660px, #000 880px);
-}
-
-#side-graphic path,
-#side-graphic circle,
-#side-graphic rect {
-  vector-effect: non-scaling-stroke;
-  stroke-width: 1;
-}
-
-/* Lines — one fixed appearance, drawn once. The page background shows
-   through everywhere: no surface fill, only wireframe. Nodes below are the
-   only thing that responds to scroll. */
-#side-graphic .sg-edges path {
-  fill: none;
-  stroke: rgba(var(--mesh-rgb), 0.26);
-}
-
-#side-graphic .sg-hull path {
-  fill: none;
-  stroke: rgba(var(--mesh-rgb), 0.16);
-  stroke-dasharray: 3 4;
-}
-
-#side-graphic .sg-handles rect {
-  fill: var(--bg);
-  stroke: rgba(var(--mesh-rgb), 0.28);
-}
-
-/* Nodes, hollow: the resting state above the fill boundary. */
-#sg-nodes-hollow .hollow {
-  fill: var(--bg);
-  stroke: rgba(var(--mesh-rgb), 0.32);
-}
-
-#sg-nodes-hollow .solid {
-  fill: var(--bg);
-  stroke: rgba(var(--mesh-rgb), 0.32);
-}
-
-/* Nodes, filled: revealed from the bottom as the page is scrolled. Most go
-   gray; a scattered share take the heading colour already in the palette. */
-#sg-nodes-filled .hollow,
-#sg-nodes-filled .solid {
-  fill: rgba(var(--mesh-rgb), 0.42);
-  stroke: rgba(var(--mesh-rgb), 0.5);
-}
-
-#sg-nodes-filled .accent {
-  fill: rgba(var(--accent-rgb), 0.62);
-  stroke: rgba(var(--accent-rgb), 0.72);
-}
-
-/* =========================================================================
-   Floating section cards
-   -------------------------------------------------------------------------
-   Every content section becomes its own raised card, lifted off the mesh
-   background by a soft shadow, and each one rises into place as it enters
-   the viewport. The section elements, their ids and the anchor links are
-   untouched — this is styling and an entrance transition on what is
-   already there.
-   ========================================================================= */
-
-main {
-  /* The cards are the layout now, so the column is set by how large they
-     should be rather than by a comfortable text measure — the measure is
-     restored by their generous side padding. */
-  max-width: 1060px;
-  padding: 2.5rem 2rem 6rem;
-}
-
-main > section {
-  /* Roughly two cards to a screen: tall enough that the page reads as a
-     stack of panels rather than a document, short enough that the second
-     one is always visibly on its way in. */
-  min-height: 42vh;
-  padding: 3rem 3.25rem;
-  margin-bottom: 4rem;
-  border-radius: 14px;
-  /* Translucent, so the mesh keeps running underneath the page instead of
-     stopping at the card edge. The blur is what keeps body text crisp over
-     a busy background. */
-  background: rgba(var(--card-rgb), 0.68);
-  -webkit-backdrop-filter: blur(9px) saturate(1.04);
-  backdrop-filter: blur(9px) saturate(1.04);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    0 1px 2px rgba(var(--mesh-rgb), 0.03),
-    0 14px 40px rgba(var(--mesh-rgb), 0.07);
-  transition:
-    box-shadow 0.35s ease,
-    transform 0.35s ease;
-}
-
-/* Where the backdrop filter is unavailable the glass would read as a
-   grey wash over the mesh, so those browsers get an opaque card instead. */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  main > section {
-    background: rgba(var(--card-rgb), 0.94);
-  }
-}
-
-main > section:last-child {
-  margin-bottom: 0;
-}
-
-/* --- Ragged edges -------------------------------------------------------
-   Each card gets its own width and its own indent, so neither the left nor
-   the right edge of the stack lines up into a column. The values are hand
-   set rather than generated, because the point is that they look chosen,
-   not cycled. Percentages are of the column, so the raggedness scales with
-   the window instead of collapsing at narrow widths. */
-main > section:nth-child(1)  { margin-left: 0;   margin-right: 7%; }
-main > section:nth-child(2)  { margin-left: 11%; margin-right: 0;  }
-main > section:nth-child(3)  { margin-left: 3%;  margin-right: 10%; }
-main > section:nth-child(4)  { margin-left: 14%; margin-right: 1%; }
-main > section:nth-child(5)  { margin-left: 1%;  margin-right: 13%; }
-main > section:nth-child(6)  { margin-left: 8%;  margin-right: 3%; }
-main > section:nth-child(7)  { margin-left: 0;   margin-right: 9%; }
-main > section:nth-child(8)  { margin-left: 13%; margin-right: 2%; }
-main > section:nth-child(9)  { margin-left: 5%;  margin-right: 11%; }
-main > section:nth-child(10) { margin-left: 10%; margin-right: 0;  }
-main > section:nth-child(11) { margin-left: 6%;  margin-right: 8%; }
-
-/* A little variation in height as well, so the stack has a skyline rather
-   than a repeating beat. */
-main > section:nth-child(3n)     { min-height: 38vh; }
-main > section:nth-child(4n + 2) { min-height: 47vh; }
-
-/* The card's padding is the whole margin now: the first and last children
-   give up their own, so every card is optically even top and bottom. */
-main > section > :first-child {
-  margin-top: 0;
-}
-
-main > section > :last-child {
-  margin-bottom: 0;
-}
-
-/* The dividers belonged to a page of stacked text. Cards carry their own
-   separation, so the drawn line is retired — but the rule that reserved its
-   height stays neutral, and --d keeps being set harmlessly by the script. */
-main > section:not(:last-child)::after {
-  content: none;
-}
-
-main > section:not(:last-child) {
-  border-bottom: 0;
-}
-
-main > section:hover {
-  transform: translateY(-5px);
-  background: rgba(var(--card-rgb), 0.80);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    0 1px 2px rgba(var(--mesh-rgb), 0.03),
-    0 24px 54px rgba(var(--mesh-rgb), 0.1);
-}
-
-/* --- About me ----------------------------------------------------------
-   Two columns of unequal width: a narrow one for the photo, a wide one for
-   the text, both aligned to the top. The photo keeps square corners. */
-.about {
-  display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: 2.25rem;
-  align-items: start;
-}
-
-.about-photo {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 0;
-}
-
-.about-text > :first-child {
-  margin-top: 0;
-}
-
-.about-text > :last-child {
-  margin-bottom: 0;
-}
-
-/* --- Entrance ----------------------------------------------------------
-   The resting state is the finished card. Only when the script has
-   confirmed it can drive the transition does it add .js-reveal to <html>,
-   which arms the hidden state — so with JavaScript off, every section is
-   simply visible. */
-.js-reveal main > section {
-  opacity: 0;
-  transform: translateY(42px);
-  transition:
-    opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
-    box-shadow 0.35s ease,
-    background-color 0.35s ease;
-  will-change: opacity, transform;
-}
-
-.js-reveal main > section.is-in {
-  opacity: 1;
-  transform: none;
-  will-change: auto;
-}
-
-.js-reveal main > section.is-in:hover {
-  transform: translateY(-4px);
-}
-
-/* --- Background particle field ----------------------------------------- */
-#bg-particles {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  display: block;
-}
-
+/* --- Narrow screens ---------------------------------------------------- */
 @media (max-width: 900px) {
-  #side-graphic {
-    display: none;
+  :root {
+    --gutter: 1.25rem;
   }
 
-  section h2 {
-    transform: translateY(calc((1 - var(--p, 1)) * 5px));
+  header {
+    padding: 3rem 0 1.75rem;
   }
 
-  /* On a phone the ragged indents would eat the reading width, so the
-     stack squares up and the cards shrink back to document proportions. */
-  main {
-    padding: 1rem 1rem 3rem;
-  }
-
-  main > section,
-  main > section:nth-child(n) {
-    min-height: 0;
-    padding: 1.6rem 1.4rem;
-    margin: 0 0 1.15rem;
-    border-radius: 10px;
-    background: rgba(var(--card-rgb), 0.84);
-  }
-
-  main > section:last-child {
-    margin-bottom: 0;
-  }
-
-  /* The title is a full phrase now, so it steps down a size on narrow
-     screens instead of breaking into one word per line. */
   header h1 {
-    font-size: 1.6rem;
-    line-height: 1.3;
+    font-size: 2rem;
+    line-height: 1.12;
   }
 
-  /* The photo moves above the text once the column is too narrow for two. */
+  main > section {
+    padding: 2.25rem 0;
+  }
+
+  /* One column: headings return above their content. */
+  main > section {
+    display: block;
+  }
+
+  main > section > h2 {
+    margin: 0 0 1rem;
+  }
+
   .about {
     grid-template-columns: 1fr;
     gap: 1.25rem;
@@ -518,53 +287,5 @@ main > section:hover {
 
   .about-photo {
     max-width: 110px;
-  }
-
-  /* Hover lift is a pointer affordance; on touch it just looks like drift. */
-  main > section:hover,
-  .js-reveal main > section.is-in:hover {
-    transform: none;
-    box-shadow:
-      0 1px 2px rgba(var(--mesh-rgb), 0.04),
-      0 8px 24px rgba(var(--mesh-rgb), 0.08);
-  }
-}
-
-/* --- Reduced motion -----------------------------------------------------
-   Movement stops; nothing is hidden that carried meaning. Headings and
-   dividers resolve to their final state, the side graphic keeps a static
-   fill matching the current scroll position, and the particle canvas is
-   removed by the script rather than merely paused. */
-@media (prefers-reduced-motion: reduce) {
-  section h2 {
-    opacity: 1;
-    transform: none;
-    will-change: auto;
-  }
-
-  section:not(:last-child)::after {
-    clip-path: none;
-  }
-
-  /* Cards keep their elevation; they simply do not travel to get it. */
-  .js-reveal main > section,
-  .js-reveal main > section.is-in {
-    opacity: 1;
-    transform: none;
-    transition: none;
-    will-change: auto;
-  }
-
-  main > section:hover,
-  .js-reveal main > section.is-in:hover {
-    transform: none;
-  }
-
-  #side-graphic {
-    will-change: auto;
-  }
-
-  #bg-particles {
-    display: none;
   }
 }
